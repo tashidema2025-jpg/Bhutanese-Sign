@@ -3,93 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign-Mate Bhutan | Kuzuzangpo</title>
+    <title>Sign-Mate Bhutan | Empowering Every Hand</title>
     <style>
-        body, html {
-            height: 100%; margin: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background-color: #1a2a6c;
+        :root {
+            --bhutan-blue: #1a2a6c;
+            --bhutan-orange: #f2994a;
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
-        .main-hero {
-            height: 100vh; width: 100%;
-            /* TIGER'S NEST BACKGROUND (DIRECT LINK) */
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                              url('https://images.unsplash.com/photo-1623518110543-0219669527e0?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center;
-            display: flex; align-items: center; justify-content: center;
-            padding: 20px;
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section with Paro Taktsang Background */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://upload.wikimedia.org/wikipedia/commons/b/b7/Paro_Taktsang_August_2013.JPG');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.98);
-            padding: 40px; border-radius: 35px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            width: 100%; max-width: 380px;
-            text-align: center; border-top: 10px solid #f2994a;
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            width: 90%;
+            max-width: 400px;
+            color: #333;
+            border-top: 10px solid var(--bhutan-orange);
         }
 
-        /* SIGN LANGUAGE GRAPHIC (INNER CARD IMAGE) */
-        .bsl-graphic {
-            width: 100%; height: 160px;
-            background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop'); 
-            background-size: cover; background-position: center;
-            border-radius: 20px; margin-bottom: 25px;
-            border: 2px solid #f2994a;
-        }
-
-        h1 { color: #1a2a6c; font-size: 2.2rem; margin: 0; font-weight: 800; }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; color: var(--bhutan-blue); }
         
-        .sub-title { color: #1a2a6c; font-weight: 700; margin: 5px 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        .tagline {
-            color: #555; font-size: 0.95rem; line-height: 1.5;
-            margin: 15px 0 30px 0; font-style: italic;
-        }
-
-        input {
-            width: 100%; padding: 15px; margin: 8px 0;
-            border-radius: 12px; border: 1px solid #ddd;
-            box-sizing: border-box; font-size: 1rem;
-            background: #fdfdfd;
-        }
+        .tagline { font-style: italic; margin-bottom: 30px; line-height: 1.4; }
 
         .btn-mate {
-            width: 100%; padding: 18px; background: #1a2a6c;
-            color: white; border: none; border-radius: 12px;
-            font-weight: bold; font-size: 1.1rem; cursor: pointer;
-            margin-top: 15px; transition: 0.3s;
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--bhutan-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
         }
 
-        .btn-mate:hover { background: #f2994a; transform: scale(1.02); }
+        .btn-mate:hover {
+            background: var(--bhutan-orange);
+            transform: translateY(-3px);
+        }
 
-        .footer { margin-top: 25px; font-size: 0.8rem; color: #1a2a6c; font-weight: 700; }
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            background: #f9f9f9;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-box {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .feature-box h3 { color: var(--bhutan-blue); }
+
+        .footer {
+            padding: 40px;
+            text-align: center;
+            background: var(--bhutan-blue);
+            color: white;
+        }
     </style>
 </head>
 <body>
 
-<div class="main-hero">
-    <div class="login-card">
-        <div class="bsl-graphic"></div>
+    <section class="hero">
+        <div class="login-card">
+            <h1>Kuzuzangpo</h1>
+            <p class="tagline">"Because every hand tells a story, and every story deserves to be heard."</p>
+            
+            <form>
+                <input type="text" placeholder="Username" style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #ddd; box-sizing:border-box;">
+                <input type="password" placeholder="Password" style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #ddd; box-sizing:border-box;">
+                <a href="translator.html" class="btn-mate" style="margin-top:20px; display:inline-block; width:92%;">Talk with Sign-Mate</a>
+            </form>
+        </div>
+    </section>
 
-        <h1>Kuzuzangpo</h1>
-        <div class="sub-title">Bhutanese Sign Language Translator</div>
-        
-        <p class="tagline">
-            "Every hand tells a story, and every story deserves to be heard."
-        </p>
-        
-        <form>
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
-            <a href="translator.html" style="text-decoration: none;">
-                <button type="button" class="btn-mate">Talk with Sign-Mate</button>
-            </a>
-        </form>
+    <section class="features">
+        <div class="feature-box">
+            <h3>Capture</h3>
+            <p>Our AI camera detects Bhutanese Sign Language (BSL) gestures in real-time with high precision.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Translate</h3>
+            <p>Sophisticated neural networks convert signs into text and spoken Dzongkha/English instantly.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Connect</h3>
+            <p>Bridging the gap between the deaf community and the hearing world across the Kingdom.</p>
+        </div>
+    </section>
 
-        <div class="footer">Sign-Mate Bhutan 🇧🇹</div>
-    </div>
-</div>
+    <footer class="footer">
+        <p>Sign-Mate Bhutan 🇧🇹 | Built for an Inclusive Future</p>
+    </footer>
 
 </body>
 </html>
