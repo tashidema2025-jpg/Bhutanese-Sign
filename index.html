@@ -3,21 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign-Mate Bhutan | Empowering Every Hand</title>
+    <title>Sign-Mate Bhutan | Kuzuzangpo</title>
     <style>
         :root {
             --bhutan-blue: #1a2a6c;
             --bhutan-orange: #f2994a;
-            --glass: rgba(255, 255, 255, 0.9);
+            --glass: rgba(255, 255, 255, 0.95);
         }
 
         body, html {
             margin: 0; padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             scroll-behavior: smooth;
+            background-color: #f4f4f4;
         }
 
-        /* Hero Section with Paro Taktsang Background */
+        /* --- NAVIGATION BAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--bhutan-blue);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--bhutan-orange);
+        }
+
+        /* --- HERO SECTION --- */
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
@@ -25,11 +70,9 @@
             background-size: cover;
             background-position: center;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: white;
-            text-align: center;
+            padding-top: 60px; /* Offset for nav bar */
         }
 
         .login-card {
@@ -38,14 +81,12 @@
             border-radius: 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             width: 90%;
-            max-width: 400px;
-            color: #333;
+            max-width: 380px;
+            text-align: center;
             border-top: 10px solid var(--bhutan-orange);
         }
 
-        h1 { font-size: 2.5rem; margin-bottom: 10px; color: var(--bhutan-blue); }
-        
-        .tagline { font-style: italic; margin-bottom: 30px; line-height: 1.4; }
+        h1 { color: var(--bhutan-blue); margin-bottom: 10px; }
 
         .btn-mate {
             display: block;
@@ -56,79 +97,62 @@
             text-decoration: none;
             border-radius: 12px;
             font-weight: bold;
+            margin-top: 20px;
             transition: 0.3s;
             border: none;
             cursor: pointer;
-            font-size: 1.1rem;
         }
 
-        .btn-mate:hover {
-            background: var(--bhutan-orange);
-            transform: translateY(-3px);
-        }
+        .btn-mate:hover { background: var(--bhutan-orange); transform: translateY(-2px); }
 
-        /* Features Section */
-        .features {
-            padding: 80px 20px;
-            background: #f9f9f9;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* Sections for scrolling */
+        section { padding: 100px 50px; text-align: center; }
+        #about { background: white; }
+        #signs { background: #f9f9f9; }
+        #contact { background: var(--bhutan-blue); color: white; }
 
-        .feature-box {
-            text-align: center;
-            padding: 30px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
-
-        .feature-box h3 { color: var(--bhutan-blue); }
-
-        .footer {
-            padding: 40px;
-            text-align: center;
-            background: var(--bhutan-blue);
-            color: white;
-        }
     </style>
 </head>
 <body>
 
-    <section class="hero">
+    <nav>
+        <a href="#" class="logo">Sign-Mate 🇧🇹</a>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="translator.html">Translator</a></li>
+            <li><a href="#signs">Signs</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
         <div class="login-card">
             <h1>Kuzuzangpo</h1>
-            <p class="tagline">"Because every hand tells a story, and every story deserves to be heard."</p>
-            
+            <p><i>"Every hand tells a story."</i></p>
             <form>
                 <input type="text" placeholder="Username" style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #ddd; box-sizing:border-box;">
                 <input type="password" placeholder="Password" style="width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #ddd; box-sizing:border-box;">
-                <a href="translator.html" class="btn-mate" style="margin-top:20px; display:inline-block; width:92%;">Talk with Sign-Mate</a>
+                <a href="translator.html" class="btn-mate">Open AI Translator</a>
             </form>
         </div>
     </section>
 
-    <section class="features">
-        <div class="feature-box">
-            <h3>Capture</h3>
-            <p>Our AI camera detects Bhutanese Sign Language (BSL) gestures in real-time with high precision.</p>
-        </div>
-        <div class="feature-box">
-            <h3>Translate</h3>
-            <p>Sophisticated neural networks convert signs into text and spoken Dzongkha/English instantly.</p>
-        </div>
-        <div class="feature-box">
-            <h3>Connect</h3>
-            <p>Bridging the gap between the deaf community and the hearing world across the Kingdom.</p>
-        </div>
+    <section id="about">
+        <h2>About Sign-Mate</h2>
+        <p>Sign-Mate is Bhutan's first AI-powered gesture recognition tool designed to bridge the communication gap between the hearing and the deaf community.</p>
     </section>
 
-    <footer class="footer">
-        <p>Sign-Mate Bhutan 🇧🇹 | Built for an Inclusive Future</p>
-    </footer>
+    <section id="signs">
+        <h2>Common Signs</h2>
+        <p>Learn basic BSL (Bhutanese Sign Language) gestures here.</p>
+        </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: support@signmate.bt</p>
+        <p>Thimphu, Bhutan</p>
+    </section>
 
 </body>
 </html>
