@@ -7,95 +7,79 @@
     <style>
         body, html {
             height: 100%; margin: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: #1a2a6c;
         }
 
         .main-hero {
-            height: 100vh;
-            width: 100%;
-            /* DIRECT IMAGE LINK TO TIGER'S NEST */
+            height: 100vh; width: 100%;
+            /* BACKGROUND: THE MAJESTIC TIGER'S NEST */
             background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
                               url('https://upload.wikimedia.org/wikipedia/commons/b/b7/Paro_Taktsang_August_2013.JPG');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
             padding: 20px;
         }
 
         .login-card {
             background: rgba(255, 255, 255, 0.98);
-            padding: 50px;
-            border-radius: 40px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-            width: 100%;
-            max-width: 400px;
+            padding: 40px;
+            border-radius: 35px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            width: 100%; max-width: 400px;
             text-align: center;
-            border-top: 12px solid #f2994a;
+            border-top: 10px solid #f2994a;
         }
 
-        h1 { 
-            color: #1a2a6c; 
-            font-size: 2.8rem; 
-            margin: 0; 
-            font-weight: 800;
+        /* THE SECOND PICTURE (Inside the card) */
+        .bsl-graphic {
+            width: 100%; height: 150px;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz7K6p35fG4aQ99E-xO6C7S8C8F9F9F9F9F9'); /* Placeholder for BSL visual */
+            background-color: #f0f2f5;
+            background-size: contain; background-repeat: no-repeat; background-position: center;
+            border-radius: 15px; margin-bottom: 20px;
+            border: 1px solid #eee;
         }
+
+        h1 { color: #1a2a6c; font-size: 2.2rem; margin: 0; font-weight: 800; }
+        
+        .sub-title { color: #1a2a6c; font-weight: 700; margin: 5px 0; font-size: 1rem; text-transform: uppercase; }
 
         .tagline {
-            color: #555;
-            font-size: 1.1rem;
-            margin: 15px 0 35px 0;
-            line-height: 1.5;
-            font-style: italic;
+            color: #555; font-size: 0.95rem; line-height: 1.4;
+            margin: 10px 0 25px 0; font-style: italic;
         }
 
         input {
-            width: 100%;
-            padding: 16px;
-            margin: 10px 0;
-            border-radius: 15px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-            font-size: 1rem;
-            background: #f9f9f9;
+            width: 100%; padding: 14px; margin: 8px 0;
+            border-radius: 12px; border: 1px solid #ddd;
+            box-sizing: border-box; font-size: 1rem;
         }
 
         .btn-mate {
-            width: 100%;
-            padding: 18px;
-            background: #1a2a6c;
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(26, 42, 108, 0.2);
+            width: 100%; padding: 16px; background: #1a2a6c;
+            color: white; border: none; border-radius: 12px;
+            font-weight: bold; font-size: 1.1rem; cursor: pointer;
+            margin-top: 15px; transition: 0.3s;
         }
 
-        .btn-mate:hover {
-            background: #f2994a;
-            transform: translateY(-2px);
-        }
+        .btn-mate:hover { background: #f2994a; transform: scale(1.02); }
 
-        .footer {
-            margin-top: 30px;
-            font-size: 0.9rem;
-            color: #1a2a6c;
-            font-weight: 600;
-        }
+        .footer { margin-top: 25px; font-size: 0.8rem; color: #1a2a6c; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="main-hero">
     <div class="login-card">
+        <div class="bsl-graphic"></div>
+
         <h1>Kuzuzangpo</h1>
-        <p class="tagline">Because every hand tells a story,<br>and every story deserves to be heard.</p>
+        <div class="sub-title">Bhutanese Sign Language Translator</div>
+        
+        <p class="tagline">
+            "Every hand tells a story, and every story deserves to be heard."
+        </p>
         
         <form>
             <input type="text" placeholder="Username" required>
@@ -105,9 +89,7 @@
             </a>
         </form>
 
-        <div class="footer">
-            Sign-Mate Bhutan 🇧🇹
-        </div>
+        <div class="footer">Sign-Mate Bhutan 🇧🇹</div>
     </div>
 </div>
 
