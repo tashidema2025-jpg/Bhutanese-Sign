@@ -3,68 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign-Bridge Bhutan</title>
+    <title>Sign-Bridge Bhutan | Kuzuzangpo</title>
     <style>
         body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background-color: #1a2a6c; /* Fallback Blue if image fails */
+            height: 100%; margin: 0; font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
+            background-color: #fafafa;
         }
 
-        .bg-image {
-            /* This is a very reliable direct link to a Bhutanese mountain landscape */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
-                              url('https://images.unsplash.com/photo-1548263514-a238825d0963?auto=format&fit=crop&w=1600&q=80');
-            
-            height: 100vh;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* The main split-screen container */
+        .split-container {
+            display: flex; height: 100vh; width: 100%;
         }
 
-        .login-card {
-            background: white;
+        /* --- THE LEFT SIDE (The Floating Cards) --- */
+        .left-side {
+            flex: 1.2; background-color: white; display: flex; flex-direction: column;
+            justify-content: space-between; padding: 60px;
+            position: relative; overflow: hidden;
+        }
+
+        .main-text { font-size: 72px; font-weight: 800; color: #1c1e21; line-height: 1.1; margin: 0; }
+        .text-blue { color: #1a2a6c; } /* BSL Blue */
+        .text-gold { color: #f2c94c; } /* BSL Gold */
+
+        /* Floating Graphics container */
+        .graphics-container {
+            width: 100%; height: 100%; position: absolute;
+            top: 250px; left: 180px; transform: scale(0.9);
+        }
+
+        /* Individual floating cards/assets */
+        .asset { position: absolute; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .asset-card { background: white; width: 200px; padding: 10px; }
+
+        /* Card 1: Punakha Dzong */
+        .asset-1 {
+            top: 30px; left: -80px; width: 230px; height: 180px;
+            background-image: url('https://images.unsplash.com/photo-1578509325057-6699386341bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MXxzZWFyY2h8Mnx8Ymh1dGFufGVufDB8fHx8MTY4MTM5NzI4MQ&ixlib=rb-4.0.3&q=80&w=400');
+            background-size: cover; background-position: center; border: 4px solid white;
+        }
+
+        /* Card 2: BSL for "Love" (Image from your search) */
+        .asset-2 {
+            top: 0px; left: 160px; width: 200px; height: 260px;
+            background-image: url('https://yt3.googleusercontent.com/ytc/AIdro_kX6oWwLz689BwNqV9NnQ9vO_S12N-p0Mv32Q=s900-c-k-c0x00ffffff-no-rj');
+            background-size: cover; background-position: center; border: 4px solid white; z-index: 5;
+        }
+
+        /* Card 3: Popcorn/Ticket (From original, placeholder) */
+        .asset-3 { top: 210px; left: -50px; width: 170px; height: 140px; background-color: #f7b731; }
+
+        /* Overlay UI assets */
+        .ui-time { top: 14px; left: 320px; background: rgba(142, 68, 173, 0.8); color: white; padding: 6px 14px; border-radius: 20px; font-weight: bold; }
+        .ui-emoji { top: -20px; left: -140px; font-size: 50px; }
+        .ui-profile { top: 290px; left: 160px; width: 80px; height: 80px; border-radius: 50%; border: 4px solid #1a2a6c; background-color: #ddd; background-image: url('https://images.unsplash.com/photo-1579331826074-a6984e1b9b1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200'); background-size: cover; z-index: 6; }
+        .ui-heart { top: 200px; left: 330px; font-size: 30px; color: #ff6b6b; z-index: 6; }
+
+
+        /* --- THE RIGHT SIDE (The Login Form) --- */
+        .right-side {
+            flex: 0.8; display: flex; align-items: center; justify-content: center;
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            width: 350px;
-            text-align: center;
-            border-top: 10px solid #f2994a; /* Bhutanese Orange stripe at top */
         }
 
-        h1 { color: #1a2a6c; margin-bottom: 5px; font-size: 2.2rem; }
-        p { color: #666; margin-bottom: 25px; }
-        
-        input { 
-            width: 100%; padding: 12px; margin: 10px 0; 
-            border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; 
+        .login-box {
+            background-color: white; padding: 40px; border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            width: 100%; max-width: 390px; text-align: center;
         }
+
+        h2 { font-size: 26px; font-weight: 700; color: #1c1e21; margin-top: 0; margin-bottom: 25px; text-align: left; }
         
+        input {
+            width: 100%; padding: 16px; margin: 8px 0;
+            border: 1px solid #dddfe2; border-radius: 8px; font-size: 17px;
+            box-sizing: border-box;
+        }
+        input:focus { border-color: #1a2a6c; outline: none; }
+
         .btn-login {
-            width: 100%; padding: 15px; background: #1a2a6c; color: white;
-            border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold;
+            width: 100%; padding: 16px; background: #1a2a6c; color: white;
+            border: none; border-radius: 8px; font-weight: bold; font-size: 20px;
+            cursor: pointer; margin-top: 15px; margin-bottom: 20px;
+            transition: 0.2s;
         }
+        .btn-login:hover { background: #f2c94c; color: #1a2a6c; }
+
+        .learn-more { font-size: 15px; color: #1877f2; text-decoration: none; display: block; margin-top: 5px; margin-bottom: 25px; }
+
+        .btn-connect {
+            padding: 12px 24px; background: #fafafa; color: #1a2a6c;
+            border: 1px solid #1a2a6c; border-radius: 8px; font-weight: bold;
+            font-size: 17px; cursor: pointer; transition: 0.2s;
+        }
+        .btn-connect:hover { background: #e6f7ff; }
+
+        .footer-logo { font-size: 18px; color: #737373; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-top: 50px; }
+        .meta-text { font-size: 22px; font-weight: bold; color: #1c1e21; margin-left: 8px; }
+
     </style>
 </head>
 <body>
 
-<div class="bg-image">
-    <div class="login-card">
-        <h1>Kuzuzangpo</h1>
-        <p>Sign-Bridge Bhutan</p>
-        <form>
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
-            <a href="translator.html"><button type="button" class="btn-login">Login</button></a>
-        </form>
+<div class="split-container">
+    
+    <div class="left-side">
+        <h1 class="main-text">
+            Explore<br>things<br><span class="text-blue">you</span> <span class="text-gold">love.</span>
+        </h1>
+
+        <div class="graphics-container">
+            <div class="asset asset-1"></div> <div class="asset asset-2"></div> <div class="asset asset-3"></div> <div class="asset ui-emoji">😊</div>
+            <div class="asset ui-time">16:45 BSL</div>
+            <div class="asset ui-profile"></div> <div class="asset ui-heart">❤️</div>
+        </div>
     </div>
+
+    <div class="right-side">
+        <div class="login-box">
+            <h2>Login to Sign-Bridge Bhutan</h2>
+            
+            <form>
+                <input type="text" placeholder="Username or email" required>
+                <input type="password" placeholder="Password" required>
+                <a href="translator.html"><button type="button" class="btn-login">Login</button></a>
+            </form>
+
+            <a href="#" class="learn-more">Learn more about BSL platform</a>
+
+            <button class="btn-connect">Connect Your Account</button>
+            
+            <div class="footer-logo">
+                Securing the future of Bhutanese Sign Language.
+                <div class="meta-text">Sign-Bridge</div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </body>
 </html>
-
+ 
       
