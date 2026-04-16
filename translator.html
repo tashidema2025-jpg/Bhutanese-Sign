@@ -1,124 +1,167 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign-Mate AI | Live Translator</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    
     <style>
+        :root {
+            --bhutan-blue: #1a2a6c;
+            --bhutan-orange: #f2994a;
+        }
+
         body {
             margin: 0;
-            background-color: #1a2a6c;
-            color: white;
+            background-color: #f4f4f4;
             font-family: 'Segoe UI', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100vh;
         }
 
-        .header {
-            padding: 20px;
-            text-align: center;
-        }
-
-        /* The Camera Container */
-        .video-container {
-            position: relative;
-            width: 90%;
-            max-width: 700px;
-            aspect-ratio: 4/3;
-            background: #000;
-            border: 5px solid #f2994a;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        video {
+        /* Nav Bar - Same as Home Page */
+        nav {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            background: white;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
         }
 
-        /* The AI Prediction Box */
-        .output-box {
-            margin-top: 30px;
-            width: 80%;
-            max-width: 600px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 15px;
+        .logo { font-weight: bold; color: var(--bhutan-blue); text-decoration: none; }
+
+        /* The Main Workspace */
+        .container {
+            margin-top: 40px;
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             text-align: center;
-            border-bottom: 4px solid #f2994a;
         }
 
-        .translated-text {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #f2994a;
+        /* Where the camera feed appears */
+        #webcam-container {
+            margin: 20px auto;
+            border: 8px solid var(--bhutan-blue);
+            border-radius: 15px;
+            background: #000;
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
         }
 
-        .status-dot {
-            height: 12px;
-            width: 12px;
-            background-color: #ff4b2b;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-            animation: blink 1s infinite;
+        /* The Big Text where the AI tells you what it sees */
+        #label-container {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--bhutan-orange);
+            margin: 20px 0;
+            min-height: 60px;
         }
 
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-
-        .back-btn {
-            margin-top: 20px;
+        .start-btn {
+            background: var(--bhutan-blue);
             color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            opacity: 0.7;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
         }
+
+        .start-btn:hover { background: var(--bhutan-orange); }
+
+        .status { color: #666; font-style: italic; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Sign-Mate Live AI</h1>
-        <p><span class="status-dot"></span> System: Ready for BSL Input</p>
+    <nav>
+        <a href="index.html" class="logo">SIGN-MATE 🇧🇹</a>
+        <a href="index.html" style="text-decoration:none; color:var(--bhutan-blue); font-weight:bold;">← Exit Translator</a>
+    </nav>
+
+    <div class="container">
+        <h1>Live BSL Translator</h1>
+        <p>Position yourself in the center of the camera and start signing.</p>
+
+        <div id="webcam-container">
+            </div>
+
+        <div id="label-container">AI Offline</div>
+        
+        <button class="start-btn" onclick="init()">Start AI Camera</button>
+        <p class="status" id="status-text">Ready to begin</p>
     </div>
 
-    <div class="video-container">
-        <video id="webcam" autoplay playsinline></video>
-    </div>
+    <script type="text/javascript">
+     
+        const URL = "PASTE_YOUR_LINK_HERE/"; 
 
-    <div class="output-box">
-        <p style="margin:0; font-size: 0.8rem; text-transform: uppercase;">Translated Meaning:</p>
-        <div class="translated-text" id="prediction">Waiting for signs...</div>
-    </div>
+        let model, webcam, labelContainer, maxPredictions;
 
-    <a href="index.html" class="back-btn">← Logout / Return Home</a>
-
-    <script>
-        // SCRIPT TO ACTIVATE THE CAMERA
-        const video = document.getElementById('webcam');
-
-        async function setupCamera() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                video.srcObject = stream;
-            } catch (err) {
-                console.error("Error accessing camera: ", err);
-                alert("Please allow camera access to use the translator.");
+        async function init() {
+            if (URL === "PASTE_YOUR_LINK_HERE/") {
+                alert("Wait! You need to paste your Teachable Machine link in the code first.");
+                return;
             }
+
+            document.getElementById('status-text').innerHTML = "Loading AI Model... Please wait.";
+            
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+
+            const flip = true; 
+            webcam = new tmImage.Webcam(400, 400, flip); 
+            await webcam.setup(); 
+            await webcam.play();
+            window.requestAnimationFrame(loop);
+
+            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            labelContainer = document.getElementById("label-container");
+            document.getElementById('status-text').innerHTML = "AI is Live and Watching!";
         }
 
-        // Start camera when page loads
-        setupCamera();
-    </script>
+        async function loop() {
+            webcam.update();
+            await predict();
+            window.requestAnimationFrame(loop);
+        }
 
+        async function predict() {
+            const prediction = await model.predict(webcam.canvas);
+            
+            let highestProb = 0;
+            let bestMatch = "";
+
+            for (let i = 0; i < maxPredictions; i++) {
+                if(prediction[i].probability > highestProb) {
+                    highestProb = prediction[i].probability;
+                    bestMatch = prediction[i].className;
+                }
+            }
+            
+            // Only show the result if the AI is more than 80% sure
+            if (highestProb > 0.80) {
+                labelContainer.innerHTML = bestMatch;
+            } else {
+                labelContainer.innerHTML = "...";
+            }
+        }
+    </script>
 </body>
 </html>
